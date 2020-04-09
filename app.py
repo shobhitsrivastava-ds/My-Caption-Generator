@@ -90,7 +90,6 @@ def upload_file():
             flash("Please select the image first !!", "success")      
             return redirect(url_for("caption"))
 
-
 @app.route('/uploads/<filename>')
 def send_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
