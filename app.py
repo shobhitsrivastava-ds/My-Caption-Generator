@@ -92,7 +92,6 @@ def send_file(filename):
 
 @app.route("/")
 
-# Home page app
 @app.route("/home")
 def home():
 	return render_template("home.html")
