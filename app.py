@@ -65,26 +65,24 @@ def generate_desc(model, tokenizer, photo, max_length):
             break
     return in_text
 
-
-# procesing uploaded file and predict it
 @app.route('/upload', methods=['POST','GET'])
 def upload_file():
     if request.method == 'GET':
         return render_template('index.html')
     else:
-        file = request.files['image']
-        full_name = os.path.join(UPLOAD_FOLDER, file.filename)
-        file.save(full_name)
-        photo = extract_features(full_name)
-  	model= load_model("model_9.h5")
-        description= generate_desc(model, data, photo, 34)
-        descript= description.split(" ")
-        descript= " ".join(descript[1:-1])
-        return render_template('predict.html', story= descript, image_file_name= file.filename)
-        """except :
-            flash("Please select the image first !!", "success")      
-            return redirect(url_for("caption"))"""
-
+        try:
+            file = request.files['image']
+            full_name = os.path.join(UPLOAD_FOLDER, file.filename)
+            file.save(full_name)
+            photo = extract_features(full_name)
+  	    model= load_model("model_9.h5")
+            description= generate_desc(model, data, photo, 34)
+            descript= description.split(" ")
+            descript= " ".join(descript[1:-1])
+            return render_template('predict.html', story= descript, image_file_name= file.filename)
+        except:
+            flash("[INFO] : Upload the image properly & then try again", "danger")      
+            return redirect(url_for("caption"))
 
 @app.route('/uploads/<filename>')
 def send_file(filename):
@@ -96,16 +94,13 @@ def send_file(filename):
 def home():
 	return render_template("home.html")
 
-# About page
 @app.route("/about")
 def about():
 	return render_template("about.html")
 
-# Cation generator
 @app.route("/caption")
 def caption():
     return render_template("index.html")
 
-# Intitiating the app        
 if __name__ == "__main__":
 	app.run(debug=True)
