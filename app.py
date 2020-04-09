@@ -18,7 +18,7 @@ app=Flask(__name__,template_folder='template')
 
 # RELATED TO THE SQL DATABASE
 app.config['SECRET_KEY'] = '5891628bb0b13ce0c676dfde280ba245'
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
+#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
 
 
 #from this import SQLAlchemy
