@@ -5,19 +5,14 @@ from numpy import array
 from numpy import argmax
 from PIL import Image
 import pickle
+import tensorflow
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import os
-from tensorflow import keras
-import tensorflow
 from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
 
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from tensorflow.keras.models import load_model, Model
 from tensorflow.keras.preprocessing import image
-from numpy import array
-from numpy import argmax
-from tensorflow.keras.preprocessing import image
-
 
 #from this import SQLAlchemy
 app=Flask(__name__,template_folder='template')
