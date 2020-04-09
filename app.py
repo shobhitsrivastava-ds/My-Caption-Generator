@@ -28,7 +28,6 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 UPLOAD_FOLDER = 'uploads'
 STATIC_FOLDER = 'static'
 
-import pickle
 with open('tokenizer.pkl', 'rb') as f:
     data = pickle.load(f)
 
@@ -73,22 +72,18 @@ def upload_file():
     if request.method == 'GET':
         return render_template('index.html')
     else:
-        try:
-            file = request.files['image']
-            full_name = os.path.join(UPLOAD_FOLDER, file.filename)
-            file.save(full_name)
-            photo = extract_features(full_name)
-            #print("After extraction :")
-            #print(photo.shape)
-            model= load_model("model_9.h5")
-            #print(model.summary())
-            description= generate_desc(model, data, photo, 34)
-            descript= description.split(" ")
-            descript= " ".join(descript[1:-1])
-            return render_template('predict.html', story= descript, image_file_name= file.filename)
-        except :
+        file = request.files['image']
+        full_name = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(full_name)
+        photo = extract_features(full_name)
+  	model= load_model("model_9.h5")
+        description= generate_desc(model, data, photo, 34)
+        descript= description.split(" ")
+        descript= " ".join(descript[1:-1])
+        return render_template('predict.html', story= descript, image_file_name= file.filename)
+        """except :
             flash("Please select the image first !!", "success")      
-            return redirect(url_for("caption"))
+            return redirect(url_for("caption"))"""
 
 
 @app.route('/uploads/<filename>')
